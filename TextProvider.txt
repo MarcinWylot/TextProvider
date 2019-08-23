@@ -1,0 +1,38 @@
+
+The TextProvider serves individual lines from a static text file to 
+
+clients over the network. The client-server protocol for this system is
+
+the following:
+
+
+
+    GET <n>  => If <n> is a valid line number for the
+
+             text file, you should return "OK\r\n" followed by the <n>th
+
+             line from the text file.
+
+
+
+             If <n> is NOT a valid line number, you should return
+
+             "ERR\r\n".
+
+
+
+             Note that the lines in the file should be indexed starting from 1,
+
+             not 0.
+
+
+
+    QUIT     => This command should disconnect the client.
+
+
+
+    SHUTDOWN => This command should shutdown the server.
+
+
+
+

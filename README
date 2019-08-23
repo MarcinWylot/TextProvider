@@ -1,0 +1,19 @@
+
+$ run.py filename
+
+build.sh does very little, attempt to install python3(sudo) and requirements(user space).
+In case you prefer to run it in a virtual environment -> DIY.
+
+With the increased number of clients the server will run thread for every client.
+Lines are read from the file per request and buffered in an LRU cache.
+https://pypi.org/project/lru-dict/
+
+The file is open and closed for every GET request (this could be optimized).
+Moreover, every thread opens file independently, so with an increased number of clients this can
+slow down I/O operations, as we're accessing storage from multiple threads.
+
+For big files, if the line is not cached the system has to simply run trough the file until it finds the right line.
+Hence, the execution time in this case will increase lineally with the size of the file.
+If the line is in the cache, it will be retrieved in a constant time (python dictionary is a hash map)
+
+I employed a standard multi-thread approach, so no extra sources was needed besides a doc files for python and libraries.
